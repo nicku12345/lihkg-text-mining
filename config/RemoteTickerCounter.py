@@ -119,7 +119,7 @@ class RemoteTickerCounter:
             remaining -= 1
         s /= (5 - remaining)
 
-        return s / idf
+        return s * idf
             
 
     def display(self, num_ticker):
