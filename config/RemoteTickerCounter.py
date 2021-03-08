@@ -164,5 +164,3 @@ class RemoteTickerCounter:
                 str(round(self.TFIDF(t2), 4)).rjust(10) +
                 str(len(self.g[t2])).rjust(10)
                 )
-
-RTC = RemoteTickerCounter()
