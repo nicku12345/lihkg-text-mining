@@ -7,6 +7,7 @@ C
 GOOD
 OR
 B
+CLS
 E
 U
 O
@@ -34,6 +35,8 @@ W
 R
 N
 Q
+FAT
+MA
 CS
 L
 J

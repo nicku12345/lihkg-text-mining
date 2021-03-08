@@ -105,7 +105,7 @@ class RemoteTickerCounter:
 
     def TFIDF(self, ticker):
         s = 0
-        idf = math.log(len(self.freq) / len(self.g[ticker]))
+        idf = 0.5 * math.log(len(self.freq) / len(self.g[ticker]))
         top5 = []
         for thread_id in self.g[ticker]:
             tf = self.freq[thread_id][ticker] / sum(self.freq[thread_id][t] for t in self.freq[thread_id])
@@ -125,6 +125,9 @@ class RemoteTickerCounter:
     def display(self, num_ticker):
         ans0 = [(ticker, self.TFIDF(ticker)) for ticker in self.ticker_ctr]
         ans1 = [(ticker, self.ticker_ctr[ticker]) for ticker in self.ticker_ctr]
+
+        #threshold for determining quality tickers
+        threshold = 0 #math.log(len(self.freq)) / 10
 
         ans0.sort(key = lambda item: item[1])
         ans1.sort(key = lambda item: item[1])
@@ -150,19 +153,24 @@ class RemoteTickerCounter:
             )
         while num_ticker > 0 and ans0:
             num_ticker -= 1
+
             t1, s1 = ans0.pop()
-            while self.ticker_ctr[t1] == 1 and len(self.g[t1]) == 1:
+            while ans0 and self.ticker_ctr[t1] == 1 and len(self.g[t1]) == 1:
                 t1, s1 = ans0.pop()
             t2, s2 = ans1.pop()
-            
+
+            if s1 <= threshold:
+                t1 = None
+
+            if t1 != None:
+                to_display1 = str(t1).rjust(10) + str(round(s1, 4)).rjust(10) + str(self.ticker_ctr[t1]).rjust(10) + str(len(self.g[t1])).rjust(10)
+            else:
+                to_display1 = "----".rjust(10) * 4
+
+            to_display2 = str(t2).rjust(10) + str(s2).rjust(10) + str(round(self.TFIDF(t2), 4)).rjust(10) + str(len(self.g[t2])).rjust(10)
+
             print(
-                str(t1).rjust(10) + 
-                str(round(s1, 4)).rjust(10) + 
-                str(self.ticker_ctr[t1]).rjust(10) + 
-                str(len(self.g[t1])).rjust(10) + 
+                to_display1 +
                 "".rjust(10) +
-                str(t2).rjust(10) + 
-                str(s2).rjust(10) +
-                str(round(self.TFIDF(t2), 4)).rjust(10) +
-                str(len(self.g[t2])).rjust(10)
+                to_display2
                 )
