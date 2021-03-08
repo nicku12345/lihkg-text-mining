@@ -23,6 +23,7 @@ class RemoteTickerCounter:
 
         self.total_thread = 0
         self.total_reply = 0
+        self.total_characters = 0
 
     def Query(self, num_thread = 60, num_reply = 60):
 
@@ -88,6 +89,7 @@ class RemoteTickerCounter:
         msg = html2text.html2text(reply["msg"])
         
         ticker_detected = self.MsgScanner.query(msg = msg)
+        self.total_characters += len(msg)
 
         for ticker in ticker_detected:
             ticker = ticker.upper()
@@ -130,7 +132,7 @@ class RemoteTickerCounter:
         self.total_thread += self.new_thread
         self.total_reply += self.new_reply
 
-        print(f"Total {self.total_thread} threads, {self.total_reply} scanned ...")
+        print(f"Total {self.total_thread} threads, {self.total_reply} replies, {self.total_characters} characters scanned ...")
         print(f"{self.new_thread} new threads, {self.new_reply} new replies detected ...")        
 
         self.new_thread, self.new_reply = 0,0
