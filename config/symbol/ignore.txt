@@ -48,3 +48,7 @@ G
 ALL
 VS
 SAFE
+SC
+LC
+RSI
+PK

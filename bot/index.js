@@ -2,7 +2,6 @@ const Discord = require("discord.js")
 const client = new Discord.Client()
 
 const token = require("./token.js")
-
 const fs = require('fs');
 
 client.on("ready", () => {
