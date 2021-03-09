@@ -1,6 +1,8 @@
 from config.ReqDescription import RD
 from config.MsgScanner import MS
 
+from datetime import datetime
+
 import requests
 import json
 import html2text
@@ -122,7 +124,7 @@ class RemoteTickerCounter:
         return s * idf
             
 
-    def display(self, num_ticker):
+    def display(self, num_ticker, to_print = False):
         ans0 = [(ticker, self.TFIDF(ticker)) for ticker in self.ticker_ctr]
         ans1 = [(ticker, self.ticker_ctr[ticker]) for ticker in self.ticker_ctr]
 
@@ -135,22 +137,42 @@ class RemoteTickerCounter:
         self.total_thread += self.new_thread
         self.total_reply += self.new_reply
 
-        print(f"Total {self.total_thread} threads, {self.total_reply} replies, {self.total_characters} characters scanned ...")
-        print(f"{self.new_thread} new threads, {self.new_reply} new replies detected ...")        
+        if to_print:
+            print(f"Total {self.total_thread} threads, {self.total_reply} replies, {self.total_characters} characters scanned ...")
+            print(f"{self.new_thread} new threads, {self.new_reply} new replies detected ...")        
 
         self.new_thread, self.new_reply = 0,0
 
-        print(
-            "Ticker".rjust(10) + 
-            "TFIDF".rjust(10) + 
-            "Count".rjust(10) + 
-            "doc cnt".rjust(10) + 
-            "".rjust(10) +
-            "Ticker".rjust(10) + 
-            "Count".rjust(10) + 
-            "TFIDF".rjust(10) +
-            "doc cnt".rjust(10)
-            )
+        if to_print:
+            print(
+                "Ticker".rjust(10) + 
+                "TFIDF".rjust(10) + 
+                "Count".rjust(10) + 
+                "doc cnt".rjust(10) + 
+                "".rjust(10) +
+                "Ticker".rjust(10) + 
+                "Count".rjust(10) + 
+                "TFIDF".rjust(10) +
+                "doc cnt".rjust(10)
+                )
+        
+        temp = {
+            "name": "",
+            "value": "```",
+            "inline": True
+        }
+
+        col1 = temp.copy()
+        col2 = temp.copy()
+
+        col1["name"] = "tf-idf"
+        col2["name"] = "Count"
+
+        col1["value"] += "Ticker  TFIDF   Count   Doc\n"
+        col2["value"] += "Ticker  Count   TFIDF   Doc\n"
+
+        N = num_ticker
+
         while num_ticker > 0 and ans0:
             num_ticker -= 1
 
@@ -163,14 +185,33 @@ class RemoteTickerCounter:
                 t1 = None
 
             if t1 != None:
-                to_display1 = str(t1).rjust(10) + str(round(s1, 4)).rjust(10) + str(self.ticker_ctr[t1]).rjust(10) + str(len(self.g[t1])).rjust(10)
+                D1, D2, D3, D4 = str(t1), format(s1, '.4f'), str(self.ticker_ctr[t1]), str(len(self.g[t1]))
             else:
-                to_display1 = "----".rjust(10) * 4
+                D1, D2, D3, D4 = "----", "----", "----", "----"
 
-            to_display2 = str(t2).rjust(10) + str(s2).rjust(10) + str(round(self.TFIDF(t2), 4)).rjust(10) + str(len(self.g[t2])).rjust(10)
+            to_display1 = D1.rjust(10) + D2.rjust(10) + D3.rjust(10) + D4.rjust(10)
 
-            print(
-                to_display1 +
-                "".rjust(10) +
-                to_display2
-                )
+            D5, D6, D7, D8 = str(t2), str(s2), format(self.TFIDF(t2), '.4f'), str(len(self.g[t2]))
+
+            to_display2 = D5.rjust(10) + D6.rjust(10) + D7.rjust(10) + D8.rjust(10)
+
+            col1["value"] += D1 + " "*(8 - len(D1)) + D2 + " "*2 + D3 + " "*(8 - len(D3)) + D4 + "\n"
+            col2["value"] += D5 + " "*(8 - len(D5)) + D6 + " "*(8 - len(D6)) + D7 + " "*2 + D8 + "\n" 
+
+            if to_print:
+                print(
+                    to_display1 +
+                    "".rjust(10) +
+                    to_display2
+                    )
+
+        col1["value"] += "```"
+        col2["value"] += "```"
+
+        response = {
+            "time": datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
+            "col": [col1, col2]
+        }
+
+        with open("./bot/response.json", "w") as f:
+            json.dump(response, f)

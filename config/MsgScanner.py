@@ -14,7 +14,7 @@ class Scanner:
         to_skip = False
         for i in range(len(msg)):
             if to_skip:
-                if msg[i].lower() == msg[i].upper() and msg[i] not in ":./":
+                if msg[i].lower() == msg[i].upper() and msg[i] not in ":./?=%&":
                     to_skip = False
                 continue
 
