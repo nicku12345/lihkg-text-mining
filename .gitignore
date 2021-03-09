@@ -3,3 +3,4 @@ env/
 misc/__pycache__
 bot/node_modules
 bot/token.js
+bot/response.json
