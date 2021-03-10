@@ -21,6 +21,10 @@ class Scanner:
             if msg[i].lower() != msg[i].upper():
                 window.append(msg[i])
 
+            if len(window) > 5 or msg[i] in ":./?=%&":
+                to_skip = True
+                window = []
+
             if i == len(msg) - 1 or msg[i].lower() == msg[i].upper():
                 word = "".join(window).upper()
 
@@ -30,10 +34,7 @@ class Scanner:
                     #print(f"{word} + 1!!!!!")
                     res.append(word)
                 window = []
-
-            if len(window) > 5 or msg[i] == "/":
-                to_skip = True
-                window = []
+                
         return res
 
 MS = Scanner()

@@ -10,11 +10,10 @@ while True:
     RTC = RemoteTickerCounter()
     for m in range(60):
         t = time.time()
-
         
         print("-------------------------------------")
         print("scanning...", end = "\r", flush = True)
-        RTC.Query(num_thread = 60, num_reply = 60)
+        RTC.Query(page = m%3 + 1, num_thread = 60, num_reply = 60)
 
         dt = round(time.time() - t, 4)
         print("\n" + f"{ordinal(m+1)} scanned finished. {dt} seconds elapsed ...")

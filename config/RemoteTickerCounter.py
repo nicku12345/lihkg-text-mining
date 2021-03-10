@@ -27,9 +27,9 @@ class RemoteTickerCounter:
         self.total_reply = 0
         self.total_characters = 0
 
-    def Query(self, num_thread = 60, num_reply = 60):
+    def Query(self, page = 1, num_thread = 60, num_reply = 60):
 
-        page = 1
+        page = page
         thread_cnt = 0
         thread_queue = []
 
