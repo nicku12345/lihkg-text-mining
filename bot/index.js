@@ -20,7 +20,7 @@ client.on("message", msg => {
         }
     }
 
-    if (msg.content === "$hit") {
+    if (msg.content === "$98") {
         msg.channel.send(embed)
     }
 })
