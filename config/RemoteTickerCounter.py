@@ -210,7 +210,7 @@ class RemoteTickerCounter:
 
         response = {
             "time": datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
-            "col": [col1, col2]
+            "col": [col1, col2],
             "counter": [self.total_thread, self.total_reply, self.total_characters]
         }
 
