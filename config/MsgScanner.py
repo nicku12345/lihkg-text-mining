@@ -30,7 +30,9 @@ class Scanner:
 
                 if word and self.TS.query(word):
                     if word in INSPECT_LIST:
+                        print(word)
                         print(msg)
+                        print('------------------------------------')
                     #print(f"{word} + 1!!!!!")
                     res.append(word)
                 window = []
