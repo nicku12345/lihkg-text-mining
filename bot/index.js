@@ -10,18 +10,21 @@ client.on("ready", () => {
 
 client.on("message", msg => {
     data = JSON.parse(fs.readFileSync('response.json'))
-    const [col1, col2] = data["col"]
-    t = data["time"]
 
-    const embed = {
+    const [col1, col2] = data["col"]
+    const t = data["time"]
+    const [thread, reply, character] = data["counter"]
+
+    const res = {
+        description: `Total ${thread} threads scanned`,
         embed: {
-            title: "Time: " + t,
+            title: "Last updated at: " + t,
             fields: [col1, col2]
         }
     }
 
     if (msg.content === "$98") {
-        msg.channel.send(embed)
+        msg.channel.send(res)
     }
 })
 
