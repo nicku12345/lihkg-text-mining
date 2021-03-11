@@ -16,8 +16,10 @@ client.on("message", msg => {
     const [thread, reply, character] = data["counter"]
 
     const res = {
-        content: `Total ${thread} threads scanned`,
-        embed: {
+            embed: {
+                footer: {
+                    text: `Total ${thread} threads scanned`,
+                },
             title: "Last updated at: " + t,
             fields: [col1, col2]
         }
