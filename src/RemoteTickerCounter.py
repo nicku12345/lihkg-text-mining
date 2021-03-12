@@ -1,5 +1,5 @@
-from config.ReqDescription import RD
-from config.MsgScanner import MS
+from src.ReqDescription import RD
+from src.MsgScanner import MS
 
 from datetime import datetime
 
@@ -14,6 +14,20 @@ class RemoteTickerCounter:
         self.MsgScanner = MS
         self.ReqDescription = RD
 
+        self.thread_ctr = dict()
+        self.ticker_ctr = dict()
+
+        self.freq = dict()
+        self.g = dict()
+
+        self.new_thread = 0
+        self.new_reply = 0
+
+        self.total_thread = 0
+        self.total_reply = 0
+        self.total_characters = 0
+
+    def reset(self):
         self.thread_ctr = dict()
         self.ticker_ctr = dict()
 

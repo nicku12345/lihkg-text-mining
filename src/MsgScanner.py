@@ -1,6 +1,6 @@
-from config.TickerScanner import TS
+from src.TickerScanner import TS
 
-f = open("./config/to_inspect.txt", "r")
+f = open("./src/to_inspect.txt", "r")
 INSPECT_LIST = set([x.strip() for x in f.readlines()])
 f.close()
 

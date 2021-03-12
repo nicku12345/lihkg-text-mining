@@ -1,13 +1,17 @@
-from config.RemoteTickerCounter import RemoteTickerCounter
+from src.RemoteTickerCounter import RemoteTickerCounter
 from misc.ordinal import ordinal
 import time
 
-to_print = False
+to_print = True
+
+if to_print:
+    print("\n" + "Initializing ...")
+RTC = RemoteTickerCounter()
 
 while True:
-    if to_print:
-        print("\n" + "Initializing ...")
-    RTC = RemoteTickerCounter()
+    
+    RTC.reset()
+
     for m in range(60):
         t = time.time()
         

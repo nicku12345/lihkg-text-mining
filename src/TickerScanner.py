@@ -1,10 +1,10 @@
 #initialize a data structure storing tickers
 #support quick query and insert
-f = open("./config/symbol/ticker.txt", "r")
+f = open("./src/symbol/ticker.txt", "r")
 TICKERS = set([word.strip() for word in f.readlines()])
 f.close()
 
-f = open("./config/symbol/ignore.txt", "r")
+f = open("./src/symbol/ignore.txt", "r")
 IGNORE = set([word.strip() for word in f.readlines()])
 f.close()
 
