@@ -2,7 +2,7 @@ from src.RemoteTickerCounter import RemoteTickerCounter
 from misc.ordinal import ordinal
 import time
 
-to_print = True
+to_print = False
 
 if to_print:
     print("\n" + "Initializing ...")
