@@ -94,7 +94,10 @@ class RemoteTickerCounter:
                 page = page,
                 thread_id = thread_id)
 
-            data = json.loads(requests.get(url, headers = headers).content)["response"]["item_data"]
+            raw = requests.get(url, headers = headers).content
+            if "response" not in raw:
+                print(raw)
+            data = json.loads(raw)["response"]["item_data"]
 
             reply_queue = data
             page -= 1
