@@ -4,5 +4,3 @@ This is a Discord bot which reports which tickers that are frequently discussed 
 Use the invitation link: https://discord.com/api/oauth2/authorize?client_id=818816710621528064&permissions=93184&scope=bot
 
 Type ```$98``` in Discord to see the response.
-
-(30 Mar 2021) Data currently outdated because this app is waiting for an update of cloudscrapper.
