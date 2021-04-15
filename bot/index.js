@@ -25,7 +25,7 @@ client.on("message", msg => {
         }
     }
 
-    if (msg.content === "$98") {
+    if (msg.content === "$98" || msg.content === "$hot" ) {
         msg.channel.send(res)
     }
 })
