@@ -56,7 +56,7 @@ class RemoteTickerCounter:
             url, headers = self.ReqDescription.generate(type = "category", page = page)
 
             page += 1
-
+            
             data = json.loads(requests.get(url, headers = headers).content)
             threads = data["response"]["items"]
 
