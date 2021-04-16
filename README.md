@@ -3,7 +3,7 @@ This is a Discord bot which reports which tickers that are frequently discussed 
 
 Use the invitation link: https://discord.com/api/oauth2/authorize?client_id=818816710621528064&permissions=93184&scope=bot
 
-Example:
+Example in your discord:
 
 ```
 >>> $hot
@@ -32,3 +32,7 @@ ID      7       0.2779  4
 YETI    7       0.7754  1
 RC      7       0.3207  4
 ```
+
+# TODO
+
+more features to be added
